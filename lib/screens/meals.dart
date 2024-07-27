@@ -4,47 +4,67 @@ import 'package:meals_app/screens/meal_details.dart';
 import 'package:meals_app/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, required this.meals, this.title, required this.onToggleFavorite});
+  const MealsScreen(
+      {super.key,
+      required this.meals,
+      this.title,
+      // required this.onToggleFavorite,
+      });
 
   final String? title;
   final List<Meal> meals;
-  final void Function(Meal meal) onToggleFavorite; 
+  // final void Function(Meal meal) onToggleFavorite;
 
-
-  void selectMeal(BuildContext context, Meal meal){
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) => MealDetailsScreen(meal: meal, onToggleFavorite: onToggleFavorite,) ,),);
-  } 
+  void selectMeal(BuildContext context, Meal meal) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (ctx) => MealDetailsScreen(
+          meal: meal,
+          // onToggleFavorite: onToggleFavorite,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget content = Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Nothing here...', style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.onBackground),),
-            const SizedBox(height: 16),
-            Text(
-              'Try selecting a different category!',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.onBackground),
-            ),
-          ],
-        ),
-      ); 
-    if (meals.isNotEmpty) { 
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Nothing here...',
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Try selecting a different category!',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+        ],
+      ),
+    );
+    if (meals.isNotEmpty) {
       content = ListView.builder(
-        itemCount : meals.length,  // this is necessary becoz we tell flutter how manu items we will have, if not then it shows error
-      itemBuilder: (ctx, index) => MealItem(meal: meals[index], onSelectMeal: (meal) {
-        selectMeal(context, meal);
-        },),);
+        itemCount: meals
+            .length, // this is necessary becoz we tell flutter how manu items we will have, if not then it shows error
+        itemBuilder: (ctx, index) => MealItem(
+          meal: meals[index],
+          onSelectMeal: (meal) {
+            selectMeal(context, meal);
+          },
+        ),
+      );
     }
 
-    if (title == null){
+    if (title == null) {
       return content;
     }
     return Scaffold(
