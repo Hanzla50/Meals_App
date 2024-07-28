@@ -19,7 +19,7 @@ class MealDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // In stateless we give 2nd parameter in build method of "WidgetRef ref" it is not globally available as compared of stateful widget State class.
-    final favoriteMeals = ref.watch(filteredMealsProvider);
+    final favoriteMeals = ref.watch(favoriteMealsProvider);
     final isFavorite = favoriteMeals.contains(meal);
     return Scaffold(
       appBar: AppBar(
